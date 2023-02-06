@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">loapi</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="username">username</string>
+    <string name="userpass">userpass</string>
+    <string name="idRole">idRole</string>
+</resources>
