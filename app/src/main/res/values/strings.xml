@@ -1,7 +1,10 @@
 <resources>
     <string name="app_name">loapi</string>
-    <string name="sign_up">Sign Up</string>
+    <string name="sign_up">register</string>
     <string name="username">username</string>
     <string name="userpass">userpass</string>
     <string name="idRole">idRole</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="signup">register</string>
 </resources>

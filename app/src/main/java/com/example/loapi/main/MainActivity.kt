@@ -1,15 +1,21 @@
 package com.example.loapi.main
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.loapi.R
 import com.example.loapi.api.RetrofitClient
 import com.example.loapi.databinding.ActivityMainBinding
+import com.example.loapi.databinding.FragmentBlankBinding
 import com.example.loapi.model.DefRequest
 import com.example.loapi.model.Response
+//import kotlinx.coroutines.flow.internal.NoOpContinuation.context
 import retrofit2.Call
 import retrofit2.Callback
+//import kotlin.coroutines.jvm.internal.CompletedContinuation.context
 
 class MainActivity : AppCompatActivity() {
 
@@ -52,12 +58,27 @@ class MainActivity : AppCompatActivity() {
                     ) {
                         //Log.d("tag", response.toString())
                         Log.d("tag", response.body()!!.token)
+
+                        Toast.makeText(this@MainActivity,"Login Successful",Toast.LENGTH_SHORT).show()
+
+                        /*binding.buttonSignUp.setOnClickListener {
+                            val intent = Intent(this@MainActivity,MainActivity2::class.java)
+                            startActivity(intent)
+                        }*/
+
+
+                        /*fun goMy(@Suppress("UNUSED_PARAMETER")view: View){
+                            val intent = Intent(this@MainActivity,MainActivity2::class.java)
+                            startActivity(intent)
+                        }*/
+
                     }
 
                     override fun onFailure(call: Call<Response>, t: Throwable) {
                         Log.d("tag", t.message.toString())
                     }
                 })
+
         }
 
 
@@ -69,5 +90,6 @@ class MainActivity : AppCompatActivity() {
 
 
     }
+
 
 }
