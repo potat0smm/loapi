@@ -1,23 +1,16 @@
 package com.example.loapi.api
 
 import okhttp3.*
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 
 
 object RetrofitClient {
-    class Get(s: String) {
+    var retrofit = Retrofit.Builder()
+        .baseUrl("http://192.168.144.16/api/")
+        .addConverterFactory(GsonConverterFactory.create())
+        .build()
 
-    }
-
-    public fun get(path: String): Response {
-        var client = OkHttpClient().newBuilder()
-            .build()
-        var request: Request = Request.Builder()
-            .url("http://192.168.144.16/api/${path}")
-            .method("GET", null)
-            .addHeader("Content-Type", "application/json")
-            .build()
-        var response = client.newCall(request).execute()
-
-        return response
-    }
+    val service: Api
+        get() = retrofit.create(Api::class.java)
 }

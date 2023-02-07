@@ -1,13 +1,15 @@
 package com.example.loapi.main
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import com.example.loapi.R
 import com.example.loapi.api.RetrofitClient
 import com.example.loapi.databinding.ActivityMainBinding
-import retrofit2.Response
+import com.example.loapi.model.DefRequest
+import com.example.loapi.model.Response
+import retrofit2.Call
+import retrofit2.Callback
 
 class MainActivity : AppCompatActivity() {
 
@@ -23,16 +25,16 @@ class MainActivity : AppCompatActivity() {
 
         binding.buttonSignUp.setOnClickListener {
 
-            val username = binding.username.text.toString().trim()
-            val userpass = binding.userpass.text.toString().trim()
+            val login = binding.username.text.toString().trim()
+            val password = binding.userpass.text.toString().trim()
             val idRole = binding.idRole.text.toString().trim()
 
-            if (username.isEmpty()) {
+            if (login.isEmpty()) {
                 binding.username.error = "no"
                 binding.username.requestFocus()
                 return@setOnClickListener
             }
-            if (userpass.isEmpty()) {
+            if (password.isEmpty()) {
                 binding.userpass.error = "no"
                 binding.userpass.requestFocus()
                 return@setOnClickListener
@@ -43,14 +45,29 @@ class MainActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
 
-            //Toast.makeText(applicationContext, "lol",Toast.LENGTH_LONG).show()
+            RetrofitClient.service.register(DefRequest(login, password, 1))
+                .enqueue(object : Callback<Response> {
+                    override fun onResponse(
+                        call: Call<Response>, response: retrofit2.Response<Response>
+                    ) {
+                        //Log.d("tag", response.toString())
+                        Log.d("tag", response.body()!!.token)
+                    }
 
-            Log.d("tag", RetrofitClient.Get("Users").toString())
-
-                //RetrofitClient.get()
-
-
+                    override fun onFailure(call: Call<Response>, t: Throwable) {
+                        Log.d("tag", t.message.toString())
+                    }
+                })
         }
 
+
+        //Toast.makeText(applicationContext, "lol",Toast.LENGTH_LONG).show()
+
+        //Log.d("tag", RetrofitClient.Get("Users").toString())
+
+        //RetrofitClient.get()
+
+
     }
+
 }
